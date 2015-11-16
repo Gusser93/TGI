@@ -1,0 +1,48 @@
+\documentclass[a4paper,11pt,twoside]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{ngerman, eucal, mathrsfs, amsfonts, bbm, amsmath, amssymb, stmaryrd,graphicx, array, geometry, listings, color}
+\geometry{left=25mm, right=15mm, bottom=25mm}
+\setlength{\parindent}{0em} 
+\setlength{\headheight}{0em} 
+\title{Theoretische Grundlagen der Informatik II\\ Blatt 3}
+\author{Markus Vieth, David Klopp, Christian Stricker}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\cleardoublepage
+\pagestyle{myheadings}
+\markboth{Markus Vieth,  David Klopp, Christian Stricker}{Markus Vieth, David Klopp, Christian Stricker}
+
+\section*{Aufgabe 1}
+
+
+
+\section*{Aufgabe 2}
+Sei $f(x_1, ..., x_n)$ ein boolscher Ausdruck mit den Klauseln $Y_1, ..., Y_k$. 
+
+\subsection*{Behauptung: SAT $\in$ NP}
+\subsubsection*{Guess}
+Es werden nichtdeterministisch die Wahrheitsbelegungen von $x_1$ bis $x_n$ geraten.
+\subsubsection*{Check}
+
+For $Y_i$ in $f(x_1,.., x_n)$:\\
+$~~~$KlauselIstWahr = true\\
+$~~~$For $x_i$ in $Y_i$:\\
+\textit{// Falls ein Term 0 ist, wird die ganze Klausel false}\\
+$~~~~~~$If $x_i == 0$:\\ 
+$~~~~~~~~~$KlauselIstWahr = false\\
+\textit{//Wenn eine Klausel wahr ist, ist der ganze boolsche Ausdruck wahr}\\
+$~~~$If KlauselIstWahr == true:\\
+$~~~~~~$return Ja\\
+return Nein\\
+
+Im worst-case beträgt die Laufzeit O(k*n) => $SAT \in NP$
+
+
+
+\section*{Aufgabe 3}
+
+\end{document}

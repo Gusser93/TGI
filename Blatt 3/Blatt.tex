@@ -1,0 +1,90 @@
+\documentclass[a4paper,11pt,twoside]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{ngerman, eucal, mathrsfs, amsfonts, bbm, amsmath, amssymb, stmaryrd,graphicx, array, geometry, listings, color}
+\geometry{left=25mm, right=15mm, bottom=25mm}
+\setlength{\parindent}{0em} 
+\setlength{\headheight}{0em} 
+\title{Theoretische Grundlagen der Informatik II\\ Blatt 3}
+\author{Markus Vieth, David Klopp, Christian Stricker}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\cleardoublepage
+\pagestyle{myheadings}
+\markboth{Markus Vieth,  David Klopp, Christian Stricker}{Markus Vieth, David Klopp, Christian Stricker}
+
+\section*{Aufgabe 1}
+
+\subsection*{a)}
+\underline{Behauptung:} A ist NP-vollständig und $ B \in NP $. Wenn  $ A \leq_{poly} $ B, dann ist B auch NP-vollständig.
+\newline
+\underline{Beweis:} A ist NP-vollständig => A ist NP-hart => Da man A auf B in polynomieller Zeit reduzieren kann, ist B auch NP-hart. Da B in NP liegt, folgt daraus: B ist NP-vollständig.
+
+\subsection*{b)}
+\underline{Behauptung:} Sei A ein NP-hartes Problem. Wenn  $ A \leq_{poly} B $ , dann ist B in der Komplexitätsklasse P.
+\newline
+\underline{Widerspruchsbeweis:} Angenommen wahr: A ist NP-hart => $ X \leq_{poly} A ~ \forall ~ X \in NP => X \leq_{poly} A \leq_{poly} B ~ \forall ~ X \in NP => X \leq_{poly} B ~\forall~ X \in NP, da B \in P => NP = P ~ Widerspruch. $
+
+\subsection*{c)}
+\underline{Behauptung:} Sei A ein Problem. Sei B ein NP-hartes Problem. Wenn A in der Komplexitätsklasse P ist, dann gibt es eine Reduktion $ A \leq_{poly} B$.
+\newline
+\underline{Beweis:} $ A \in P  \subset NP =>  A \leq_{poly} B $
+
+\subsection*{d)}
+\underline{Behauptung:} Für ein beliebiges Problem X gelte $ SAT \leq_{poly} X \leq_{poly} SAT$ . Dann ist X NP-vollständig.
+\newline
+\underline{Beweis:} SAT ist ein NP-vollständiges Problem. Da SAT auf X in polynomieller Zeit reduziert werden kann, ist SAT NP-hart. 
+\newline
+$SAT \in NP $ und $ X \leq_{poly} SAT $ => $ X \in NP $ . DA $ X \in NP $ und X NP-hart => X ist NP-vollständig 
+
+\subsection*{e)}
+\underline{Definition Klasse NP:} Menge aller Entscheidungsprobleme, die effizient überprüft werden können.
+\newline
+Es existiert ein polynomieller Algorithmus B mit zwei Eingaben s und t und ein Polynom p, so dass gilt:
+\newline Ist $ s \notin X $ , so ist B(s,t) = no für alle $ t \in \{0,1\}^* $
+\newline Ist $ s \in X $, so existiert rin $ t \in \{0,1\}^* $ mit $ |t| \leq p(s|)$ und B(s,t) = yes
+\newline
+
+\subsection*{f)}
+\underline{Satz von Cook und Levin:} SAT ist NP-vollständig und wenn ein Problem X auf SAT reduziert werden kann, kann man auch das Problem X auf SAT reduzieren.
+\newline
+
+\subsection*{g)}
+Unter der Annahme, das die Reduktion den Algorithmus von A nicht beinhaltet:\\
+Da der Algorithmus B durch A gelöst wird, beträgt die Laufzeit die Summe von A und der Reduktion: $ O(n^5+n^4) = O(n^5) $ 
+
+\section*{Aufgabe 2}
+\subsection*{Behauptung: Set-Cover(SC) ist NP-Vollständig}
+\subsection*{Zu zeigen: Set-Cover(SC) $\in$ NP}
+\subsubsection*{Guess}
+Es werden nichtdeterministisch k paarweise verschiedene Teilemengen S ausgewählt und in T gespeichert.
+\subsubsection*{Check}
+kopiere M in M'. (Laufzeit |M|=n)\\
+für alle Teilmengen $S_i$ in T (Laufzeit höchstens n)\\
+$~~~$für alle Elemente $e_j\in S_i$ (Laufzeit höchstens n)\\
+$~~~~~~$für alle Elemente $e_k\in M'$ (Laufzeit höchstens n)\\
+$~~~~~~~~~$wenn $e_j = e_k$ (Laufzeit konstant)\\
+$~~~~~~~~~~~~$lösche $e_k$ in M' (Laufzeit konstant)\\
+Wenn $|M'|=0$ \\
+$~~~$ return ja \\
+sonst\\
+$~~~$ return nein.
+\[\Rightarrow T(n)\in O(n^3)\]
+$\Rightarrow SC\in NP$
+\subsection*{Zu zeigen: Set-Cover(SC) ist NP-hart}
+Für jeden Knoten im Graphen existiert genau eine Teilemenge. (Laufzeit n)
+\[\forall v_i \in V \exists! S_i\]
+Für jede Kante im Graphen existiert genau ein Element in M. (Laufzeit bis zu $n^2$)
+\[\forall k_i \in E \exists! e_i \in M\]
+Die Elemente, welche eine Kante repräsentieren, befinden sich genau dann in einer Teilemenge eines Knoten, wenn die Kante am Knoten endet.
+\[e_i\in S_j \Leftrightarrow \exists k_i=\{v_i,v_x\} \text{mit beliebigen x}\]
+für alle Kanten $k_i\in E$ (Laufzeit bis zu $n^2$)\\
+$~~~$für alle Knoten $v_j\in k_i$ (Laufzeit 2)\\
+$~~~~~~$speichere $e_i$ in $S_j$
+\[\Rightarrow T(n)\in O(n^2)\]
+\[\Rightarrow \text{SC ist NP-Hart} \land SC\in NP \Rightarrow \text{SC ist NP-Vollständig}\]
+
+\end{document}
