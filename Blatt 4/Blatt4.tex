@@ -17,6 +17,9 @@
 \markboth{Markus Vieth,  David Klopp, Christian Stricker}{Markus Vieth, David Klopp, Christian Stricker}
 
 \section*{Aufgabe 1}
+Quelle: Richard M. Karp: Reducibility Among Combinatorial Problems. In: R. E. Miller und J. W. Thatcher (Hrsg.): Complexity of Computer Computations. Plenum Press, New York, 1972, S. 85–103
+\subsection*{Karps 21 NPC-Probleme}
+SATISFIABILITY, 0-1 INTEGER PROGRAMMING, CLIQUE, SET PACKING, NODE COVER, SET COVERING, FEEDBACK NODE SET, FEEDBACK ARC SET, DIRECTED HAMILTON CIRCUIT, UNDIRECTED HAMILTON CIRCUIT, SATISFIABILITY WITH AT MOST 3 LITERALS PER CLAUSE, CHROMATIC NUMBER, CLIQUE COVER, EXACT COVER, HITTING SET, STEINER TREE, 3-DIMENSIONAL MATCHING, KNAPSACK, JOB SEQUENCING, PARTITION, MAX CUT
 \subsection*{1. INTEGER PROGRAMMING}
 Eingabe: Matrix C aus ganzen Zahlen und ein ganzzahliger Vektor d \\
 Beschreibung: Es gibt einen Vektor x bestehend aus 0 und 1, so dass Cx = d gilt.\\
@@ -65,7 +68,7 @@ Sei $f(x_1, ..., x_n)$ ein boolscher Ausdruck mit den Klauseln $Y_1, ..., Y_k$.
 \subsubsection*{Guess}
 Es werden nichtdeterministisch die Wahrheitsbelegungen von $x_1$ bis $x_n$ geraten.
 \subsubsection*{Check}
-
+Im folgenden sei KlauselIstWahr eine boolsche Variable.\\
 For $Y_i$ in $f(x_1,.., x_n)$:\\
 $~~~$KlauselIstWahr = true\\
 $~~~$For $x_i$ in $Y_i$:\\
@@ -95,7 +98,7 @@ E = \{\{$<\sigma, i>, <\delta, j>$\} $i \not= j \lor \sigma \not= \delta$ \}
 D.h verbinde alle Kanten miteinander, die nicht in der selben Klausel sind und bei denen das Literal nicht der Negation des Literals entspricht.\\
 
 Es ergibt sich somit der Graph G(V,E). Wähle k = $\#\{Y_1, ... Y_n\}$. D.h k entspricht der Anzahl von Klauseln des boolschen Ausdrucks.\\
-Diese Operationen lassen sich in poylnomieller Laufzeit ausführen.\\
+Diese Operationen lassen sich in polynomieller Laufzeit ausführen, da $3\cdot k =: n$ Knoten erstellt werden müssen, und zwischen diesen maximal $3\cdot\sum_{i=1}^{k}3\cdot(k-i)=9\cdot\sum_{i=0}^{k-1} i = 9\cdot\frac{k(k-1)}{2}=\frac{9}{2}\cdot k^2+k$ Kanten verlaufen.\\
 
 Wende nun den CLIQUEN-Algorithmus an. Die Lösung von 3-SAT ist nun äquivalent zur Lösung von CLIQUE.\\
 
