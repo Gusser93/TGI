@@ -1,13 +1,15 @@
 \documentclass[a4paper,11pt,twoside]{article}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{ngerman, eucal, mathrsfs, amsfonts, bbm, amsmath, amssymb, stmaryrd,graphicx, array, geometry, listings, color}
+\usepackage{ngerman, eucal, mathrsfs, amsfonts, bbm, amsmath, amssymb, stmaryrd,graphicx, array, geometry, listings, color, ulem}
 \geometry{left=25mm, right=15mm, bottom=25mm}
 \setlength{\parindent}{0em} 
 \setlength{\headheight}{0em} 
 \title{Theoretische Grundlagen der Informatik II\\ Blatt 5}
 \author{Markus Vieth, David Klopp, Christian Stricker}
 \date{\today}
+\newcommand{\korr}[2]{\sout{#1} \textcolor{red}{\underline{#2}}}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
 
 \begin{document}
 
@@ -24,6 +26,27 @@
 
 
 \section*{Aufgabe 3}
+\subsection*{Vorüberlegung:}
+\[P=NP \Rightarrow SAT\in NP=P\Rightarrow SAT\in P\]
+\subsection*{zu Zeigen:}
+Es existiert ein Algorithmus, welcher für eine erfüllbare aussagenlogische Formel $\Phi$ in polynomieller Zeit eine erfüllende Belegung ausgibt.\\
+\subsection*{Beweis:}
+Sei die Laufzeit des polynomiellen SAT-Algorithmus = p
+Sei $X:=\{x_i| \forall x_i \in \Phi\}$ die Liste aller Literale in $\Phi$, |X| ist im worst-case = n.\\
+if (SAT($\Phi(X)$)\{  //Teste ob $\Phi$ erfüllbar ist; (Laufzeit ist p) 
+$~~~$for(int i=0; i < |X|; i++) \{  //Setze jedes $x_i$ auf einen festen Wert, (im worst-case n Durchläufe)
+$~~~$$~~~$X[i]=0;  //Teste ob $\Phi$ erfüllbar, wenn $x_i=0$
+$~~~$$~~~$if(!(SAT($\Phi(X)$))) \{ //Wenn nicht: (Laufzeit = p)
+$~~~$$~~~$$~~~$X[i]=1; 	//, dann muss $x_i$ gleich 1 sein
+$~~~$$~~~$\} //Wenn SAT mit $x_i=0$ erfüllbar ist, bleibt $x_i$ gleich 0 
+$~~~$\} //Wenn dies für alle $x_i$ erfolgreich durchgeführt wurde, besitzt X eine erfüllende Belegung
+$~~~$ String result ="'"';
+$~~~$ for (int i = 0; i < |X| ; i++)
+$~~~$$~~~$result = result+X[i]+"'"';
+$~~~$return result;
+\}
+else
+$~~~$return "'nicht erfüllbar"';
 
-
+Die erste Überprüfung dauert p lange, die folgende Schleife hat im worst-case n Durchläufe und in jedem Durchlauf einen SAT-Aufruf mit der Laufzeit p, somit beträgt die Laufzeit $T(n)=p+p\cdot n \Rightarrow$ die Laufzeit des oben genannten Algorithmus ist selbst wieder polynomiell, da die Laufzeit höchstens ein Polynom vom Grad $grad(p)+1$ ist. Das die Ausgabe ein legitimes Ergebnis ist, ist trivial und geht aus dem Algorithmus hervor.
 \end{document}
