@@ -8,6 +8,8 @@
 \title{Theoretische Grundlagen der Informatik II\\ Blatt 5}
 \author{Markus Vieth, David Klopp, Christian Stricker}
 \date{\today}
+\definecolor{command_green}{rgb}{0, 0.5, 0}
+\newcommand{\green}[1]{\textcolor{command_green}{#1}}
 
 \begin{document}
 
@@ -17,6 +19,63 @@
 \markboth{Markus Vieth,  David Klopp, Christian Stricker}{Markus Vieth, David Klopp, Christian Stricker}
 
 \section*{Aufgabe 1}
+\subsection*{Beh: INDEPENDENT-SET $\in$ NP:}
+\subsection*{Bew:}
+\subsubsection*{GUESS}
+Rate nicht-deterministisch eine Menge von Knoten der Größe k.
+
+\subsubsection*{CHECK}
+vorhandene\_kanten = []\\
+FOR v IN V: \green{// iteriert über alle Knoten} \\
+$~~~~~~~~$FOR k IN v.getKanten(): \green{// iteriert über alle Kanten eines Knotens} \\
+$~~~~~~~~~~~~~~~~$FOR i IN vorhandene\_kanten: \green{// iteriert über alle Kanten des Arrays}\\
+$~~~~~~~~~~~~~~~~~~~~~~~~$IF i == k: \\
+$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$return Nein \green{// zwei Knoten die zu einer Kante passen} \\
+$~~~~~~~~~~~~~~~~~~~~~~~~$ELSE:\\
+$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$vorhandene\_kanten.add(k) \\
+return Ja \green{// jede Kante der Lösung ist nur einmal vertreten}
+
+
+\subsection*{Laufzeit:}
+\subsubsection*{GUESS:}
+Im worst-case, also für k=n beträgt die Laufzeit n.
+
+\subsubsection*{CHECK:}
+Falls alle Knoten untereinander verbunden sind, beträgt die Laufzeit zum Durchlaufen aller Kanten: $n \cdot \sum_{i=0}^{n-1} i$. Nach Gauß folgt daraus: $n \cdot \frac{(n^2-n)}{2}$. 
+
+\subsubsection*{Gesamt:}
+Die gesamt Laufzeit beträgt somit: $n \cdot \frac{(n^2-n)}{2} + n \in O(n^3)$ \\
+$q.e.d.$  
+
+
+\subsection*{Reduktion: CLIQUE $\leq_p $ INDEPENDENT-SET}
+\subsubsection*{Vorgehen:}
+Verbinde alle Knoten untereinander, die durch keine Kante verbunden sind. Lösche alle ursprünglichen Kanten und wende nun das INDEPENDENT-SET Problem mit der Größe k an. \\
+
+\subsubsection*{Formal:} 
+Eingabe: Graph G(V,E), ganze Zahl k \\
+
+$E' := \{<v,w> | \forall~ v \not= w ~and ~v,w \in V \} \setminus E$\\
+$G' := G(V, E')$\\
+$ INDEPENDENT-SET(G', k)$
+ 
+ \subsubsection*{Laufzeit:} 
+
+1. Bilde die Menge alle Kante $\Rightarrow \sum_{i=1}^n(n-i) = \sum_{i=0}^{n-1} i = \frac{n^2-n}{2}$ \\
+2. Entferne aus der Menge aller möglichen Kanten jene, die in E liegen. Iteriere hierzu über die Menge aller möglichen Kanten, so wie über E $\Rightarrow (\frac{n^2-n}{2})^2$ \\
+$\Rightarrow$ Laufzeit: $O(n^4)$
+
+
+ \subsubsection*{Äquivalenzbeweis:} 
+'' $\Rightarrow$ ''
+Geg: CLIQUE\\
+Alle Knoten in einer Clique sind untereinander verbunden. Durch die Komplementbildung der Kanten sind diese Knoten nun alle nicht mehr miteinander verbunden. Es ergibt sich somit ein Independent-Set. \\
+
+'' $\Leftarrow$ ''
+Geg: Independent-Set\\
+Alle Knoten eines Independent-Set weisen untereinander keine Kanten auf. Nach der Bildung des Komplements sind alle Knoten untereinander verbunden. Es ergibt sich eine Clique. \\
+
+$q.e.d$
 
 
 \section*{Aufgabe 2}
