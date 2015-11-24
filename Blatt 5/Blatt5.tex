@@ -98,6 +98,7 @@ Es existiert ein Algorithmus, welcher für eine erfüllbare aussagenlogische For
 Sei die Laufzeit des polynomiellen SAT-Algorithmus = p\\
 Sei $X:=\{x_i| \forall x_i,\overline{x_i} \in \Phi\}$ die Liste aller Literale in $\Phi$, |X| ist im worst-case = n.\\
 if (SAT($\Phi(X)$)\{  //Teste ob $\Phi$ erfüllbar ist; (Laufzeit ist p) \\
+\\
 $~~~$for(int i=0; i < |X|; i++) \{  //Setze jedes $x_i$ auf einen festen Wert, (im worst-case n Durchläufe)\\
 $~~~$$~~~$X[i]=0;  //Teste ob $\Phi$ erfüllbar, wenn $x_i=0$\\
 $~~~$$~~~$if(!(SAT($\Phi(X)$))) \{ //Wenn nicht: (Laufzeit = p)\\
