@@ -22,6 +22,7 @@
 	{ü}{{\"u}}1
 	{ä}{{\"a}}1
 	{ö}{{\"o}}1
+	{pi}{{$\Pi$}}1
 }
 
 \begin{document}
@@ -56,7 +57,15 @@ Es wird ein Vektor mit $n+1$ Elementen erzeugt, somit ist die Laufzeit in $\math
 Die ersten beiden Schleifen durchlaufen $\sum_{i=1}^{n} i \in \mathcal{O}(n^2)$ Elemente, die dritte Schleife durchläuft $n$ Elemente und macht Brechungen, welche konstante Zeit benötigen. Somit liegt die Laufzeit in $\mathcal{O}(n^2)$.
 
 \subsubsection*{Gesamt:}
-Die gesamt Laufzeit liegt somit in $\mathcal{O}(n^2)$ \begin{flushright}
+Die gesamt Laufzeit liegt somit in $\mathcal{O}(n^2) \Rightarrow \text{TSP}\in \text{NP}$\\
+Alternativ könnte man auch eine Permutation $\Pi(i)$ nicht-deterministisch wählen, dann wäre nur noch die letzte Schleife notwendig und die Laufzeit wäre in $\mathcal{O}(n)$
+\begin{lstlisting}
+int sum = 0;
+for ( int i = 0; i < n ; i++)
+  sum += d(C[pi(i)],C[pi(i+1)]);  // Berechne die Länge des Kreises (O(n))
+return sum <= k;
+\end{lstlisting}
+ \begin{flushright}
 	q.e.d.
 \end{flushright}
 
@@ -85,12 +94,15 @@ Existiert mindestens ein Hamiliton-Cycle, so existiert in der oben beschriebenen
 '' $\Leftarrow$ ''
 Geg: TSP\\
 Ist die kleinst mögliche Entfernung im TSP gleich Null, so existieren im Hamilton-Cycle Problem Kanten, so dass jeder Knoten einmal besucht werden kann. \\
-
+\\
+\[ \Rightarrow \text{ TSP ist NP-hart} \]
 \begin{flushright}
 	q.e.d
 \end{flushright}
-
-
+\[ \text{TSP}\in \text{NP} \land \text{TSP ist NP-hart} \Rightarrow \text{TSP ist NP-voll.} \]
+\begin{flushright}
+	q.e.d
+	\end{flushright}
 \section*{Aufgabe 2}
 \subsection*{a) Nicht-polynomielle Algorithmen}
 Nicht-polynomielle Algorithmen, sind Algorithmen, welche nicht in polynomieller Laufzeit laufen. Dazu gehören z.B. Algorithmen mit exponentieller Laufzeit. Oft werden möglichst effiziente nicht-polynomielle Algorithmen für Probleme in NP genutzt, z.B. Backtracking bei TSP oder SAT.
