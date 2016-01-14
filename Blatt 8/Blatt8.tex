@@ -1,0 +1,104 @@
+\documentclass[a4paper,11pt,twoside]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{ngerman, eucal, mathrsfs, amsfonts, bbm, amsmath, amssymb, stmaryrd,graphicx, array, geometry, listings, color, ulem, epstopdf}
+\geometry{left=25mm, right=15mm, bottom=25mm}
+\setlength{\parindent}{0em} 
+\setlength{\headheight}{0em} 
+\title{Theoretische Grundlagen der Informatik II\\ Blatt 8}
+\author{Markus Vieth \and Marvin Becker}
+\date{\today}
+\definecolor{comment_green}{rgb}{0, 0.5, 0}
+\newcommand{\green}[1]{\textcolor{comment_green}{#1}}
+\newcommand{\korr}[2]{\sout{#1} \textcolor{red}{\underline{#2}}}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+
+\lstset{%
+	mathescape = true,%
+	literate=%
+	{Ö}{{\"O}}1
+	{Ä}{{\"A}}1
+	{Ü}{{\"U}}1
+	{ß}{{\ss}}2
+	{ü}{{\"u}}1
+	{ä}{{\"a}}1
+	{ö}{{\"o}}1
+	{pi}{{$\Pi$}}1
+}
+
+\begin{document}
+
+\maketitle
+\cleardoublepage
+\pagestyle{myheadings}
+\markboth{Markus Vieth, Marvin Becker}{Markus Vieth, Marvin Becker}
+
+\section*{Aufgabe 1}
+\subsection*{a)}
+\subsubsection*{Pseudo-Code}
+Gegeben sei ein ungerichteter Graph $G=(V,E)$
+\begin{lstlisting}
+result = $\emptyset$
+E' = E
+while (E' $\neq$ $\emptyset$) {
+	wähle die Kante (v,w) beliebig aus E'
+	result = result $\cup${v,w}
+	foreach Kante (x,y) aus E' {
+		if (x == v || x == w || y == w || y == v)
+			E'=E'\ (x,y)
+	}
+}
+return result
+\end{lstlisting}
+result wird durch die while-Schleife mit den Knoten der Knotenüberdeckung gefüllt. Jeder Knoten kann nur höchstens einmal betrachtet werden, da anschließend alle Kanten, welche den Knoten enthalten aus E' gelöscht werden. Somit läuft der Algorithmus in $\mathcal{O}(|V||E|) = \mathcal{O}(|V|^3)$\\
+\subsubsection*{Güte}
+Sei $E*$ die Menge aller Kanten, welche im Pseudo-Code für die Knotenüberdeckung gewählt wurden und $C$ unser Ergebnis. Die optimale Lösung $C_{optimal}$ muss mindestens unser Teilproblem $G=(V, E*)$ ebenfalls lösen. Da es sich um perfektes Matching handelt,  werden hierfür genau so viele Knoten benötigt, wie $|E*|$ Kanten besitzt.
+\[ |C_{optimal} \geq |E*| \]
+Wie in der Vorlesung angesprochen, nutzt der Algorithmus perfektes Matching. Daraus folgt, dass unsere Lösung $C$ doppelt soviele knoten besitzt, wie Kanten gewählt wurden.
+\[ |C| = 2|E*| \]
+\[ \Rightarrow |C| = 2|E*| \leq 2|C_{optimal}| \]
+$\Rightarrow$ Güte ist 2
+\begin{flushright}
+	q.e.d.
+\end{flushright}
+\section*{Aufgabe 2}
+\paragraph{Gegenbeispiel}
+\begin{tabular}{c|ccc}
+	$i$	&$1$&$2$&$3$\\
+	$w(i)$&$10$&$20$&$30$\\
+	$p(i)$&$60$&$100$&$120$\\
+	$r(i)$&$6$&$5$&$4$	
+\end{tabular}
+Der Algorithmus wählt 1 und 2, obwohl 2 und 3 optimal wären.
+\paragraph{Beweis}
+Sei $P(x)$ die Profitfunktion für die Menge $x$\\
+Sei $P(O)$ der Profit der optimalen Lösung\\
+Sei $k$ die Anzahl der Elemente, welche der Algorithmus auswählt.\\
+Sei $n$ die Anzahl der Elemente. \\
+Sei $R(X) := \frac{P(x)}{W(x)}~\forall x\in X$
+\[ R(a_1)\geq R(a_2) \geq \ldots \geq R(a_n) \]
+\[ \sum_{1}^{k} P(a_i) \leq P(O) \] 
+
+\paragraph{Korrektur}
+	b Größe des Rucksacks
+	\[ O_1: p_1 = 2~~w_1=1\Rightarrow \frac{p_1}{w_1} = 2 \]
+	\[ O_2: p_2 = b~~w_2=b\Rightarrow\frac{p_2}{w_2} = 1 \]
+	Lösung des Algo. $G=2$\\
+	Optimale Lösung $Opt=b$\\
+	\[ \lim_{b\rightarrow\infty}(Opt-G) = \lim\limits_{b \rightarrow\infty}(n-2)=\infty \]
+\section*{Aufgabe 3}
+\paragraph{Behauptung}
+Der beschriebene Algorithmus hat die Güte 2
+\paragraph{Beweis}
+Sei $P(x)$ die Profitfunktion für die Menge $x$\\
+Sei $P(O)$ der Profit der optimalen Lösung\\
+Sei $P(R) := P(\{ a_1,\ldots,a_{k-1} \})$
+\subparagraph{1. Fall} $P({a_k}) \geq P(R)$
+\[ P(R) \leq P({a_k}) \leq P(O) \leq P(\{ a_1,\ldots,a_k \}) = P(\{ a_k \}) + P(R) \leq 2\cdot P(\{ a_k \}) \]
+\[ \Rightarrow \frac{1}{2}P(O) \leq P({a_k}) \leq P(O) \]
+\subparagraph{2. Fall} $P({a_k}) < P(R)$
+\[ P(R) \leq P({R}) \leq P(O) \leq P(\{ a_1,\ldots,a_k \}) = P(\{ a_k \}) + P(R) \leq 2\cdot P(R) \]
+\[ \Rightarrow \frac{1}{2}P(O) \leq P(R) \leq P(O) \]
+
+\end{document}
+
