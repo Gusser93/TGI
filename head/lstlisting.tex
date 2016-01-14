@@ -1,0 +1,19 @@
+\usepackage{xcolor}
+\usepackage{listings}
+
+\definecolor{comment_green}{rgb}{0, 0.5, 0}
+\newcommand{\green}[1]{\textcolor{comment_green}{#1}}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+
+\lstset{%
+	mathescape = true,%
+	literate=%
+	{Ö}{{\"O}}1
+	{Ä}{{\"A}}1
+	{Ü}{{\"U}}1
+	{ß}{{\ss}}2
+	{ü}{{\"u}}1
+	{ä}{{\"a}}1
+	{ö}{{\"o}}1
+	{pi}{{$\Pi$}}1
+}
