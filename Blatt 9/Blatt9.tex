@@ -1,0 +1,49 @@
+\documentclass[a4paper,11pt,twoside]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{ngerman, eucal, mathrsfs, amsfonts, bbm, amsmath, amssymb, stmaryrd,graphicx, array, geometry, listings, color, ulem, epstopdf}
+\geometry{left=25mm, right=15mm, bottom=25mm}
+\setlength{\parindent}{0em} 
+\setlength{\headheight}{0em} 
+\title{Theoretische Grundlagen der Informatik II\\ Blatt 9}
+\author{Markus Vieth \and Marvin Becker}
+\date{\today}
+\definecolor{comment_green}{rgb}{0, 0.5, 0}
+\newcommand{\green}[1]{\textcolor{comment_green}{#1}}
+\newcommand{\korr}[2]{\sout{#1} \textcolor{red}{\underline{#2}}}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+
+\lstset{%
+	mathescape = true,%
+	literate=%
+	{Ö}{{\"O}}1
+	{Ä}{{\"A}}1
+	{Ü}{{\"U}}1
+	{ß}{{\ss}}2
+	{ü}{{\"u}}1
+	{ä}{{\"a}}1
+	{ö}{{\"o}}1
+	{pi}{{$\Pi$}}1
+}
+
+\begin{document}
+
+\maketitle
+\cleardoublepage
+\pagestyle{myheadings}
+\markboth{Markus Vieth, Marvin Becker}{Markus Vieth, Marvin Becker}
+
+\section*{Aufgabe 1}
+Siehe Grafik 1
+\begin{flushright}
+	q.e.d.
+\end{flushright}
+\section*{Aufgabe 2}
+\subsection*{a)}
+\[ T\cup e' \text{ erzeugt Kreis }C \]
+\[ T'\text{ ist Spannbaum} \Rightarrow \exists e\in (T\setminus T')\cap C \]
+da sonst Kreis auch in T'
+\subsection{b)}
+Nach dem Lemma aus Aufgabe a) kann man eine Kante e aus $T$ mit einer Kante e' aus $T'$ tauschen, so dass ein neuer Spannbaum entsteht. Seien $T_i:= T_{i-1}.swap(e,e') | i\in\{1,\ldots,k\},~~T_0=T,~~e\in T_{i-1}\setminus T', e'\in T'\setminus T_{i-1}$ die Spannbäume, welche nach i Schritten entstehen. Weiter gilt $|T\setminus T'| - i = |T_i\setminus T'|$, da mit jedem Schritt sich der Spannbaum $T_i$ dem Spannbaum $T'$ annähert. Sobald $i = |T\setminus T'|$ folgt $T_i = T'$, da sich keine Kante mehr unterscheidet. Die maximale anzahl an Schritten ist somit $|T\setminus T'| \leq n-1$, da sich höchstens um $n-1$ Kanten, bei 2 Spannbäumen mit disjunkten Kantenmengen, unterscheiden können.
+\end{document}
+
