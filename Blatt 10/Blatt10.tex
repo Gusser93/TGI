@@ -1,0 +1,114 @@
+\documentclass[a4paper,11pt,twoside]{scrartcl}
+\input{../head/packages}
+\input{../head/format}
+\input{../head/abgabeMakros}
+\input{../head/lstlisting}
+
+\title{Theoretische Grundlagen der Informatik II\\ Blatt 10}
+\author{Markus Vieth \and Marvin Becker}
+\date{\today}
+
+\newcounter{beweis}
+
+\begin{document}
+
+\maketitle
+\cleardoublepage
+\pagestyle{myheadings}
+\markboth{Markus Vieth, Marvin Becker}{Markus Vieth, Marvin Becker}
+
+\section*{Aufgabe 1}
+\paragraph{Pseudocode}
+Sei \texttt{E} das Ergebnis des Monte Carlo Algorithmus, \texttt{I} die Eingabe und \texttt{boolean test(Ergebnis E)} der Algorithmus, welcher das Ergebnis überprüft.
+\begin{lstlisting}
+Ergebnis E;
+do {
+	E = MonteCarloAlgorithmus(I); 
+}while(!test(E));
+return E;
+\end{lstlisting}
+\paragraph{Laufzeit}
+Sei $q(n)=1-p(n)$ und $P(X = i) := q(n)^{i-1}\cdot p(n)$ die Wahrscheinlichkeit, dass der Monte Carlo Algorithmus nach $i$ Durchläufen das richtige Ergebnis liefert (also zuerst $i-1$ falsche und dann ein richtiges). Dann beträgt die zu erwartende Anzahl an Durchläufen:
+\[ E(X)=\sum_{i=1}^{\infty} i\cdot q(n)^{i-1}\cdot p(n)=\footnote{$\sum_{i=1}^{\infty} i\cdot q(n)^{i-1}\cdot p(n)$ ist absolut konvergent, wenn $0<p(n)<1$, kann per Quotientenkriterium gezeigt werden}p(n)\cdot\sum_{i=1}^{\infty} i\cdot q(n)^{i-1}=\footnote{Ableitung der geometrischen Reihe} p(n)\cdot\frac{1}{(1-q(n))^2}=\frac{p(n)}{(1-1+p(n))^2}=\frac{1}{p(n)}  \]
+Sei $T_{LV}(n)$ die Laufzeit des oben beschriebenen Algorithmus:
+\[ \Rightarrow T_{LV}(n)=E(X)\cdot (T(n)+t(n))=\frac{T(n)+t(n)}{p(n)}  \]
+\begin{flushright}
+	q.e.d.
+\end{flushright}
+\section*{Aufgabe 2}
+\subsection*{a)}
+\paragraph{Behauptung}
+Wenn $f$ und $g$ vernachlässigbar sind, dann ist $f + g$ vernachlässigbar.
+\paragraph{Beweis}
+Sei $\mathcal{P}$ die Menge aller Polynome,
+\[ f, g \text{ vernachlässigbar } \Rightarrow\forall p(x)\in\mathcal{P} \exists N\in\mathbb{N} | f(n)<\frac{1}{2p(n)} \land g(n) < \frac{1}{2p(n)} \forall n>N\]
+\[ \Rightarrow f(n)+g(n) < \frac{1}{2p}+\frac{1}{2p}=\frac{2}{2p}=\frac{1}{p} \]
+\begin{flushright}
+	q.e.d.
+\end{flushright}
+\subsection*{b)}
+\paragraph{Behauptung}
+Wenn $f$ und $g$ vernachlässigbar sind, dann ist $f g$ vernachlässigbar.
+\paragraph{Beweis}
+\[ f,g \text{ vernachlässigbar } \Rightarrow\footnote{da 1 ein Polynom vom Grad 0 ist} f<1 \land g<1 \Rightarrow fg<g<p(n)\Rightarrow fg \text{ ist vernachlässigbar} \]
+\begin{flushright}
+	q.e.d.
+\end{flushright}
+\subsection*{c)}
+\paragraph{Behauptung}
+Wenn $f$ vernachlässigbar und $g$ eine beliebige positive Funktion ist, dann ist $f + g$
+vernachlässigbar.
+\paragraph{Gegenbeispiel}
+\subparagraph{Anmerkung:} Im folgenden wird davon ausgegangen, dass vernachlässigbare Funktionen stets größer oder gleich 0 sind.\\
+Sei $f$ eine beliebige vernachlässigbare Funktion und $g=1$
+\[ \not\exists N\in\mathbb{N} ~|~ f(n)+1 < 1~\forall~n>N \]
+\begin{flushright}
+	q.e.d.
+\end{flushright}
+\subsection*{d)}
+\paragraph{Behauptung}
+Wenn $f$ vernachlässigbar und $c$ eine positive Konstante ist, dann ist $cf$ vernachlässigbar.
+\paragraph{Beweis}
+\[ f \text{ vernachlässigbar }\Rightarrow \forall p(x)\in\mathcal{P} \exists N\in\mathbb{N} | f(n)<\frac{1}{c\cdot p(n)} \forall n>N\Rightarrow c\cdot f(n) < \frac{c}{c\cdot p(n)} = \frac{1}{p(n)}\]
+\[ \Rightarrow cf \text{ ist vernachlässigbar.} \]
+\begin{flushright}
+	q.e.d.
+\end{flushright}
+\subsection*{e)}
+\paragraph{Behauptung}
+$f(n) = \frac{1}{n^{10}}$. $f$ ist vernachlässigbar.
+\paragraph{Gegenbeispiel}
+\[ \not\exists N\in\mathbb{N} | \frac{1}{n^{10}} < \frac{1}{n^{42}} \Rightarrow f\text{ ist nicht vernachlässigbar.} \]
+\begin{flushright}
+	q.e.d.
+\end{flushright}
+\section*{Aufgabe 3}
+\subsection*{a)}
+
+\paragraph{Behauptung}  Sei $H_1(s) = G_2(\overline{s})$.  Zeige, dass $H_1$ ein PZG ist.
+\paragraph{Beweis}
+\paragraph{Zu zeigen:$\ell_{H_1}(n) > n$}
+\[ H_1(s) = G_2(\overline{s}) \land \ell_{G_2}(n) = 2n \Rightarrow \ell_{H_1}(n)=2n \]
+\paragraph{Zu zeigen:$\left|Pr\left[D(H_1(s))= 1\right] - Pr\left[D(r) = 1\right]\right| \leq negl(n) $}
+Sei $s\in_R\{ 0,1 \}^n$ und $r\in_R\{ 0,1 \}^{2n}$
+\[ s\text{ zufällig gleichverteilt} \Rightarrow Pr\left[D(G_2(\overline s))=1\right] =Pr\left[D(G_2(s))= 1\right]\]
+\[\Rightarrow Pr\left[D(G_2(\overline s))=1\right]=Pr\left[D(G_2(s))=1\right]=Pr\left[D(H_1(s))=1\right]\]
+$\Rightarrow$ $H_1$ ist ein PZG.
+
+\subsection*{b)}
+\paragraph{Behauptung}
+Sei $H_2(s) = G_1(s)|G_2(\overline s)$. Zeige, dass $H_2$ nicht notwendig ein PZG ist, indem du $G_1$ und $G_2$ so wählst, dass $H_2$ nicht wirklich randomisiert ist.
+\paragraph{Gegenbeispiel}
+Sei $G_1(s)$ ein PZG und $G_2(s) := G_1(\overline s)$ und somit auch ein PZG. Und $negl(n)$ die Menge aller vernachlässigbaren Funktionen.
+\[ \Rightarrow H_1(s)=G_1(s)|G_2(\overline s) = G_1(s)|G_1(s) \]
+$\Rightarrow$ Für einen Unterscheider $\mathcal D$, welcher in eine Bitfolge $s$ der Länge $4n$ überprüft, ob die ersten $\frac{4n}{2}$ den letzten $\frac{4n}{2}$ Bits entsprechen gilt:
+\[ Pr\left[D(H_2(s))= 1\right] = 1 \land =Pr\left[D(r)= 1\right] = \frac{2^{2n}}{2^{4n}} = \frac{1}{2^{2n}} \]
+\[\Rightarrow \left|Pr\left[D(H_2(s))= 1\right] - Pr\left[D(r) = 1\right]\right| = \frac{2^{2n}-1}{2^{2n}}\notin negl(4n)  \]
+$\Rightarrow$ $H_2(s)$ ist kein PZG.
+\begin{flushright}
+	q.e.d.
+\end{flushright}  
+
+
+\end{document}
+
