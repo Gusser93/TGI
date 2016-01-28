@@ -35,6 +35,10 @@ Sei $T_{LV}(n)$ die Laufzeit des oben beschriebenen Algorithmus:
 \begin{flushright}
 	q.e.d.
 \end{flushright}
+\korr{}{Sei $X$ die Anzahl der Durchläufe}
+\korr{}{$ X \~ \text{geom}_p \Rightarrow E[X] = \frac{1}{p(n)} $} 
+\korr{}{\[ P(X=k)=(1-p)^{k-1}\cdot p \]
+	\[ E[X] = \sum_{k = 1}^{\infty} = \sum_{k = 1}^{\infty}(1-p)^{k-1}pk = p\sum_{k = 1}^{\infty}(1-p)^{k-1}k = p \sum_{n=0}^{\infty}\frac{-d}{dp}(1-p)^k \]}
 \section*{Aufgabe 2}
 \subsection*{a)}
 \paragraph{Behauptung}
@@ -42,7 +46,7 @@ Wenn $f$ und $g$ vernachlässigbar sind, dann ist $f + g$ vernachlässigbar.
 \paragraph{Beweis}
 Sei $\mathcal{P}$ die Menge aller Polynome,
 \[ f, g \text{ vernachlässigbar } \Rightarrow\forall p(x)\in\mathcal{P} \exists N\in\mathbb{N} | f(n)<\frac{1}{2p(n)} \land g(n) < \frac{1}{2p(n)} \forall n>N\]
-\[ \Rightarrow f(n)+g(n) < \frac{1}{2p}+\frac{1}{2p}=\frac{2}{2p}=\frac{1}{p} \]
+\[ \Rightarrow f(n)+g(n) < \korr{\frac{1}{2p}+\frac{1}{2p}=\frac{2}{2p}=\frac{1}{p}}{\frac{1}{2p(n)}+\frac{1}{2p(n)}=\frac{2}{2p(n)}=\frac{1}{p(n)}~\forall n>N} \]
 \begin{flushright}
 	q.e.d.
 \end{flushright}
@@ -50,7 +54,7 @@ Sei $\mathcal{P}$ die Menge aller Polynome,
 \paragraph{Behauptung}
 Wenn $f$ und $g$ vernachlässigbar sind, dann ist $f g$ vernachlässigbar.
 \paragraph{Beweis}
-\[ f,g \text{ vernachlässigbar } \Rightarrow\footnote{da 1 ein Polynom vom Grad 0 ist} f<1 \land g<1 \Rightarrow fg<g<p(n)\Rightarrow fg \text{ ist vernachlässigbar} \]
+\[ f,g \text{ vernachlässigbar } \Rightarrow\footnote{da 1 ein Polynom vom Grad 0 ist} \korr{f<1}{f(n)<1} \land \korr{g<1}{g(n)<1} \Rightarrow \korr{fg<g<p(n)}{f(n)g(n)<g(n)<\frac{1}{p(n)}}\Rightarrow \korr{fg}{f(n)g(n)} \text{ ist vernachlässigbar} \]
 \begin{flushright}
 	q.e.d.
 \end{flushright}
@@ -91,6 +95,10 @@ $f(n) = \frac{1}{n^{10}}$. $f$ ist vernachlässigbar.
 \[ H_1(s) = G_2(\overline{s}) \land \ell_{G_2}(n) = 2n \Rightarrow \ell_{H_1}(n)=2n \]
 \paragraph{Zu zeigen:$\left|Pr\left[D(H_1(s))= 1\right] - Pr\left[D(r) = 1\right]\right| \leq negl(n) $}
 Sei $s\in_R\{ 0,1 \}^n$ und $r\in_R\{ 0,1 \}^{2n}$
+\korr{}{\[ \overline{~}:\{ 0,1 \}^n \rightarrow \{ 0,1 \}^n \] 
+\[ b=\{ b_1,b_2,\ldots, b_n \} \mapsto \{ \overline{b_1},\overline{b_2},\ldots, \overline{b_n} \} \]
+\[ \text{Da }s\in_R \{0,1\}^n \Rightarrow \overline{s}\in_R\{0,1\}^n \]	
+}
 \[ s\text{ zufällig gleichverteilt} \Rightarrow Pr\left[D(G_2(\overline s))=1\right] =Pr\left[D(G_2(s))= 1\right]\]
 \[\Rightarrow Pr\left[D(G_2(\overline s))=1\right]=Pr\left[D(G_2(s))=1\right]=Pr\left[D(H_1(s))=1\right]\]
 $\Rightarrow$ $H_1$ ist ein PZG.
